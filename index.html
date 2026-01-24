@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoundWave - Music Discovery</title>
+
+<!-- PWA Meta Tags -->
+<meta name="theme-color" content="#4ecdc4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="SoundWave">
+<meta name="description" content="Discover and download music with SoundWave">
+
+<!-- PWA Icons -->
+<link rel="icon" type="image/jpeg" href="icon.jpg">
+<link rel="apple-touch-icon" href="icon.jpg">
+<link rel="manifest" href="manifest.json">
+
+<!-- Stylesheets -->
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="header">
+  <div class="search-container">
+    <h1 class="search-title">SoundWave</h1>
+    <p class="search-subtitle">Search something above</p>
+    <div class="search-wrapper">
+      <input id="query" placeholder="Search for music..." autofocus>
+    </div>
+  </div>
+</div>
+
+<div class="loading" id="loading">
+  <div class="spinner"></div>
+  <p>Searching for music...</p>
+</div>
+
+<div id="results">
+  <div class="empty-state">
+    <h3>🎵 Ready to discover music?</h3>
+    <p>Type in the search bar above to find your favorite songs</p>
+  </div>
+</div>
+
+<!-- Modal for song preview -->
+<div class="modal" id="songModal">
+  <div class="modal-content">
+    <img class="modal-artwork" id="modalArtwork" src="" alt="Album artwork">
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <p class="modal-artist" id="modalArtist"></p>
+    
+    <div class="audio-controls">
+      <button class="play-button" id="playButton">▶</button>
+      <div class="seek-bar-container">
+        <div class="seek-bar" id="seekBar">
+          <div class="seek-progress" id="seekProgress"></div>
+        </div>
+        <div class="time-display">
+          <span id="currentTime">0:00</span>
+          <span id="totalTime">0:00</span>
+        </div>
+      </div>
+    </div>
+    
+    <div>
+      <button class="download-button" id="downloadButton">⬇ Download</button>
+      <button class="close-button" id="closeModal">Close</button>
+    </div>
+  </div>
+</div>
+
+<audio id="audioPlayer" preload="none"></audio>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/browser-id3-writer@4/dist/browser-id3-writer.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
