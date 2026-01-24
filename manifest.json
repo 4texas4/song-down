@@ -1,8 +1,8 @@
 {
-  "name": "SoundWave - Music Discovery",
+  "name": "Song Downloader",
   "short_name": "SoundWave",
   "description": "Discover, preview, and download music with SoundWave",
-  "start_url": "/index.html",
+  "start_url": "/song-down/index.html",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#4ecdc4",
