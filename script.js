@@ -342,43 +342,90 @@ if ('serviceWorker' in navigator) {
 
 // PWA Install Prompt
 let deferredPrompt;
-const installButton = document.createElement('button');
-installButton.textContent = '📱 Install App';
-installButton.style.cssText = `
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: linear-gradient(45deg, #4ecdc4, #44a08d);
-  border: none;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 25px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(78, 205, 196, 0.3);
-  display: none;
-  z-index: 1000;
-  transition: all 0.3s ease;
-`;
+let installButton;
 
-installButton.addEventListener('click', async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to the install prompt: ${outcome}`);
-    deferredPrompt = null;
+function createInstallButton() {
+  installButton = document.createElement('button');
+  installButton.textContent = '📱 Install';
+  installButton.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(78, 205, 196, 0.3);
+    display: none;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    font-size: 14px;
+  `;
+
+  installButton.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response to the install prompt: ${outcome}`);
+      deferredPrompt = null;
+      hideInstallButton();
+    }
+  });
+
+  installButton.addEventListener('mouseenter', () => {
+    installButton.style.transform = 'translateY(-2px)';
+    installButton.style.boxShadow = '0 6px 24px rgba(78, 205, 196, 0.4)';
+  });
+
+  installButton.addEventListener('mouseleave', () => {
+    installButton.style.transform = 'translateY(0)';
+    installButton.style.boxShadow = '0 4px 16px rgba(78, 205, 196, 0.3)';
+  });
+
+  document.body.appendChild(installButton);
+}
+
+function showInstallButton() {
+  if (!installButton) {
+    createInstallButton();
+  }
+  installButton.style.display = 'block';
+}
+
+function hideInstallButton() {
+  if (installButton) {
     installButton.style.display = 'none';
   }
-});
+}
+
+// Check if app is already installed
+function isAppInstalled() {
+  return window.matchMedia('(display-mode: standalone)').matches || 
+         window.navigator.standalone === true;
+}
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  document.body.appendChild(installButton);
-  installButton.style.display = 'block';
+  
+  // Only show install button if app is not already installed
+  if (!isAppInstalled()) {
+    showInstallButton();
+  }
 });
 
 window.addEventListener('appinstalled', () => {
   console.log('PWA was installed');
-  installButton.style.display = 'none';
+  hideInstallButton();
+  deferredPrompt = null;
+});
+
+// Hide install button if app is already installed
+window.addEventListener('load', () => {
+  if (isAppInstalled()) {
+    hideInstallButton();
+  }
 });

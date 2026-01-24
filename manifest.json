@@ -12,7 +12,7 @@
   "dir": "ltr",
   "icons": [
     {
-      "src": "icon.jpg",
+      "src": "icons/icon.jpg",
       "sizes": "any",
       "type": "image/jpeg",
       "purpose": "maskable any"
@@ -40,7 +40,7 @@
       "url": "/?action=search",
       "icons": [
         {
-          "src": "icon.jpg",
+          "src": "icons/icon.jpg",
           "sizes": "any"
         }
       ]

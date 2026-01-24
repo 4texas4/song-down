@@ -66,8 +66,8 @@ function doBackgroundDownload() {
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'New music available!',
-    icon: 'icon.jpg',
-    badge: 'icon.jpg',
+    icon: 'icons/icon.jpg',
+    badge: 'icons/icon.jpg',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
@@ -77,12 +77,12 @@ self.addEventListener('push', (event) => {
       {
         action: 'explore',
         title: 'Explore',
-        icon: 'icon.jpg'
+        icon: 'icons/icon.jpg'
       },
       {
         action: 'close',
         title: 'Close',
-        icon: 'icon.jpg'
+        icon: 'icons/icon.jpg'
       }
     ]
   };
